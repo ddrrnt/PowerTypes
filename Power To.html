@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 25.2.3.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { background: transparent }
+		pre.western { font-family: "Liberation Mono", monospace; font-size: 10pt }
+		pre.cjk { font-family: "Noto Sans Mono CJK SC", monospace; font-size: 10pt }
+		pre.ctl { font-family: "Liberation Mono", monospace; font-size: 10pt }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre class="western">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Power To: Agency, Initiative &amp; Transformative Capacity&lt;/title&gt;
+
+    &lt;!-- External assets --&gt;
+    &lt;script src=&quot;https://cdn.tailwindcss.com&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&amp;family=Inter:wght@300;400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css&quot;&gt;
+
+    &lt;!-- Color palette (shifted from amber / olive to teal / indigo) --&gt;
+    &lt;style&gt;
+        :root {
+            --primary: #0f4c75;      /* deep teal */
+            --secondary: #3282b8;    /* medium teal */
+            --accent: #5bc0be;       /* bright aqua */
+            --neutral: #f7fafc;      /* very light gray-blue */
+            --base: #ffffff;
+            --text: #0f4c75;
+            --text-light: #4a5568;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--neutral);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .serif { font-family: 'Crimson Text', serif; }
+
+        .hero-title {
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--base);
+            border-right: 1px solid #e5e7eb;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .main-content { margin-left: 280px; min-height: 100vh; }
+
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        .toc-link:hover   { background: var(--neutral); color: var(--primary); }
+        .toc-link.active  { background: var(--accent); color: white; }
+
+        .section-number { color: var(--accent); font-weight: 600; margin-right: 0.5rem; }
+
+        .citation {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .citation:hover { text-decoration: underline; }
+
+        .pull-quote {
+            border-left: 4px solid var(--accent);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--text-light);
+            font-size: 1.125rem;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .bento-item {
+            background: var(--base);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(91,192,190,0.08) 0%, rgba(50,130,184,0.08) 100%);
+            border: 1px solid rgba(91,192,190,0.25);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 1024px) {
+            .toc-fixed { display: none; }
+            .main-content { margin-left: 0; }
+            .bento-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.25rem; }
+            .bento-item { padding: 1.5rem; }
+        }
+    &lt;/style&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;!-- Fixed Table of Contents --&gt;
+    &lt;nav class=&quot;toc-fixed&quot;&gt;
+      &lt;div class=&quot;mb-6&quot;&gt;
+        &lt;h3 class=&quot;text-lg font-semibold text-gray-800 mb-4&quot;&gt;Contents&lt;/h3&gt;
+      &lt;/div&gt;
+      &lt;ul class=&quot;space-y-1&quot;&gt;
+        &lt;li&gt;&lt;a href=&quot;#hero&quot;           class=&quot;toc-link&quot;&gt;Introduction&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#executive&quot;     class=&quot;toc-link&quot;&gt;Executive Summary&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#defining&quot;      class=&quot;toc-link&quot;&gt;1. Power To Defined&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#creation&quot;      class=&quot;toc-link&quot;&gt;1.1 Creative Emergence&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#initiation&quot;    class=&quot;toc-link&quot;&gt;1.2 Initiation &amp; Launch&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#pioneering&quot;    class=&quot;toc-link&quot;&gt;1.3 Pioneering&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#transform&quot;     class=&quot;toc-link&quot;&gt;2. Transformation&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#leadership&quot;    class=&quot;toc-link&quot;&gt;3. Guiding Change&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#momentum&quot;      class=&quot;toc-link&quot;&gt;4. Momentum&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;#idioms&quot;        class=&quot;toc-link&quot;&gt;5. Idioms &amp; Phrases&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+
+    &lt;!-- Main Content --&gt;
+    &lt;main class=&quot;main-content&quot;&gt;
+      &lt;!-- Hero Section --&gt;
+      &lt;section id=&quot;hero&quot; class=&quot;relative bg-gradient-to-br from-slate-50 to-cyan-50 py-16&quot;&gt;
+        &lt;div class=&quot;max-w-7xl mx-auto px-6&quot;&gt;
+          &lt;div class=&quot;bento-grid&quot;&gt;
+            &lt;div class=&quot;bento-item fade-in&quot;&gt;
+              &lt;span class=&quot;text-sm font-medium text-gray-500 uppercase tracking-wide&quot;&gt;Agency &amp; Initiative Framework&lt;/span&gt;
+              &lt;h1 class=&quot;hero-title text-5xl lg:text-6xl leading-tight mb-6&quot;&gt;
+                Power To: Agency, Initiative &amp; Transformative Capacity
+              &lt;/h1&gt;
+              &lt;p class=&quot;text-xl text-gray-600 leading-relaxed&quot;&gt;
+                A lexicon of verbs, idioms, and expressions that signal the capacity to initiate change, create momentum, and enact transformation—without dominance or coercion.
+              &lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div class=&quot;space-y-4&quot;&gt;
+              &lt;div class=&quot;bento-item bg-gradient-to-br from-teal-50 to-cyan-50 fade-in&quot; style=&quot;animation-delay: 0.2s;&quot;&gt;
+                &lt;i class=&quot;fas fa-rocket text-2xl text-teal-600 mb-2&quot;&gt;&lt;/i&gt;
+                &lt;h3 class=&quot;text-lg font-semibold&quot;&gt;Creative Emergence&lt;/h3&gt;
+                &lt;p class=&quot;text-sm text-gray-700&quot;&gt;Innovate, design, conceptualize, originate&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;bento-item bg-gradient-to-br from-indigo-50 to-blue-50 fade-in&quot; style=&quot;animation-delay: 0.4s;&quot;&gt;
+                &lt;i class=&quot;fas fa-play-circle text-2xl text-indigo-600 mb-2&quot;&gt;&lt;/i&gt;
+                &lt;h3 class=&quot;text-lg font-semibold&quot;&gt;Initiation&lt;/h3&gt;
+                &lt;p class=&quot;text-sm text-gray-700&quot;&gt;Launch, ignite, catalyze, mobilize&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;bento-item bg-gradient-to-br from-purple-50 to-pink-50 fade-in&quot; style=&quot;animation-delay: 0.6s;&quot;&gt;
+                &lt;i class=&quot;fas fa-route text-2xl text-purple-600 mb-2&quot;&gt;&lt;/i&gt;
+                &lt;h3 class=&quot;text-lg font-semibold&quot;&gt;Momentum&lt;/h3&gt;
+                &lt;p class=&quot;text-sm text-gray-700&quot;&gt;Propel, foster, sustain, amplify&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Executive Summary --&gt;
+      &lt;section id=&quot;executive&quot; class=&quot;py-16 bg-white&quot;&gt;
+        &lt;div class=&quot;max-w-4xl mx-auto px-6&quot;&gt;
+          &lt;h2 class=&quot;serif text-3xl font-semibold mb-8 text-center&quot;&gt;Executive Summary&lt;/h2&gt;
+          &lt;div class=&quot;highlight-box&quot;&gt;
+            &lt;p class=&quot;text-lg leading-relaxed mb-4&quot;&gt;
+              &lt;strong&gt;“Power To”&lt;/strong&gt; signals the &lt;em&gt;capacity to initiate, create, and transform&lt;/em&gt;—a form of agency that is self-directed yet non-dominant. It is expressed through verbs of invention, idioms of momentum, and expressions that reveal volitional coherence without coercion.
+            &lt;/p&gt;
+            &lt;p class=&quot;text-lg leading-relaxed&quot;&gt;
+              This report curates language markers that foreground &lt;strong&gt;creative emergence&lt;/strong&gt; (e.g., &lt;em&gt;innovated, pioneered, conceptualized&lt;/em&gt;), &lt;strong&gt;initiation and launch&lt;/strong&gt; (e.g., &lt;em&gt;ignited, launched, catalyzed&lt;/em&gt;), and &lt;strong&gt;momentum&lt;/strong&gt; (e.g., &lt;em&gt;propelled, fostered, amplified&lt;/em&gt;). Together they map the linguistic landscape of generative power.
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Section 1: Power To Defined --&gt;
+      &lt;section id=&quot;defining&quot; class=&quot;py-16 bg-gradient-to-b from-slate-50 to-cyan-50&quot;&gt;
+        &lt;div class=&quot;max-w-6xl mx-auto px-6&quot;&gt;
+          &lt;h2 class=&quot;serif text-4xl font-semibold mb-12 text-center&quot;&gt;
+            &lt;span class=&quot;section-number&quot;&gt;1.&lt;/span&gt; Power To: Agency, Initiative &amp; Creative Emergence
+          &lt;/h2&gt;
+
+          &lt;!-- Creative Emergence --&gt;
+          &lt;div id=&quot;creation&quot; class=&quot;mb-16&quot;&gt;
+            &lt;h3 class=&quot;serif text-2xl font-semibold mb-6&quot;&gt;
+              1.1 Creative Emergence &amp; Innovation
+            &lt;/h3&gt;
+            &lt;div class=&quot;grid lg:grid-cols-2 gap-8&quot;&gt;
+              &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm&quot;&gt;
+                &lt;h4 class=&quot;font-semibold text-teal-700 mb-3&quot;&gt;Creation &amp; Design&lt;/h4&gt;
+                &lt;ul class=&quot;space-y-1 text-sm&quot;&gt;
+                  &lt;li&gt;&lt;strong&gt;created&lt;/strong&gt; – brought into existence&lt;/li&gt;
+                  &lt;li&gt;&lt;strong&gt;designed&lt;/strong&gt; – intentionally structured&lt;/li&gt;
+                  &lt;li&gt;&lt;strong&gt;innovated&lt;/strong&gt; – introduced novel methods&lt;/li&gt;
+                  &lt;li&gt;&lt;strong&gt;conceptualized&lt;/strong&gt; – formed abstract ideas&lt;/li&gt;
+                  &lt;li&gt;&lt;strong&gt;devised&lt;/strong&gt; – contrived through ingenuity&lt;/li&gt;
+                  &lt;li&gt;&lt;strong&gt;customized&lt;/strong&gt; – tailored to context&lt;/li&gt;
+                  &lt;li&gt;&lt;strong&gt;integrated&lt;/strong&gt; – unified disparate parts&lt;/li&gt;
+                &lt;/ul&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm&quot;&gt;
+                &lt;div class=&quot;pull-quote&quot;&gt;
+                  “To innovate is to see possibility where others see limits.”
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Initiation &amp; Launch --&gt;
+          &lt;div id=&quot;initiation&quot; class=&quot;mb-16&quot;&gt;
+            &lt;h3 class=&quot;serif text-2xl font-semibold mb-6&quot;&gt;
+              1.2 Initiation &amp; Launch
+            &lt;/h3&gt;
+            &lt;div class=&quot;bg-white p-8 rounded-lg shadow-sm&quot;&gt;
+              &lt;div class=&quot;grid md:grid-cols-2 gap-6&quot;&gt;
+                &lt;div&gt;
+                  &lt;h4 class=&quot;font-semibold text-indigo-700 mb-2&quot;&gt;Starting Motion&lt;/h4&gt;
+                  &lt;ul class=&quot;list-disc list-inside space-y-1 text-sm&quot;&gt;
+                    &lt;li&gt;initiated, launched, kick-started&lt;/li&gt;
+                    &lt;li&gt;implemented, enacted, activated&lt;/li&gt;
+                    &lt;li&gt;proposed, introduced, tabled&lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                  &lt;h4 class=&quot;font-semibold text-purple-700 mb-2&quot;&gt;Sparking Energy&lt;/h4&gt;
+                  &lt;ul class=&quot;list-disc list-inside space-y-1 text-sm&quot;&gt;
+                    &lt;li&gt;ignited, sparked, kindled&lt;/li&gt;
+                    &lt;li&gt;catalyzed, triggered, seeded&lt;/li&gt;
+                    &lt;li&gt;galvanized, mobilized, rallied&lt;/li&gt;
+                  &lt;/ul&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Pioneering &amp; Origination --&gt;
+          &lt;div id=&quot;pioneering&quot; class=&quot;mb-16&quot;&gt;
+            &lt;h3 class=&quot;serif text-2xl font-semibold mb-6&quot;&gt;
+              1.3 Pioneering &amp; Origination
+            &lt;/h3&gt;
+            &lt;div class=&quot;grid md:grid-cols-3 gap-6&quot;&gt;
+              &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm&quot;&gt;
+                &lt;h4 class=&quot;font-semibold text-cyan-700 mb-2&quot;&gt;Trail-blazing&lt;/h4&gt;
+                &lt;p class=&quot;text-sm&quot;&gt;pioneered, trail-blazed, broke new ground&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm&quot;&gt;
+                &lt;h4 class=&quot;font-semibold text-cyan-700 mb-2&quot;&gt;Establishing&lt;/h4&gt;
+                &lt;p class=&quot;text-sm&quot;&gt;founded, originated, instituted, set in motion&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm&quot;&gt;
+                &lt;h4 class=&quot;font-semibold text-cyan-700 mb-2&quot;&gt;Charting&lt;/h4&gt;
+                &lt;p class=&quot;text-sm&quot;&gt;charted new territory, mapped uncharted paths&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Section 2: Transformation --&gt;
+      &lt;section id=&quot;transform&quot; class=&quot;py-16 bg-white&quot;&gt;
+        &lt;div class=&quot;max-w-6xl mx-auto px-6&quot;&gt;
+          &lt;h2 class=&quot;serif text-4xl font-semibold mb-12 text-center&quot;&gt;
+            &lt;span class=&quot;section-number&quot;&gt;2.&lt;/span&gt; Transformation, Refinement &amp; Modernization
+          &lt;/h2&gt;
+
+          &lt;div class=&quot;grid lg:grid-cols-3 gap-8&quot;&gt;
+            &lt;div class=&quot;bg-gradient-to-br from-teal-50 to-cyan-50 p-6 rounded-lg&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-teal-800 mb-3&quot;&gt;Transformative Verbs&lt;/h4&gt;
+              &lt;p class=&quot;text-sm&quot;&gt;transformed, revolutionized, reinvented, revitalized, overhauled&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;bg-gradient-to-br from-indigo-50 to-blue-50 p-6 rounded-lg&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-indigo-800 mb-3&quot;&gt;Refinement Verbs&lt;/h4&gt;
+              &lt;p class=&quot;text-sm&quot;&gt;improved, refined, enhanced, updated, revised, rectified&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-lg&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-purple-800 mb-3&quot;&gt;Modernization Verbs&lt;/h4&gt;
+              &lt;p class=&quot;text-sm&quot;&gt;modernized, upgraded, renovated, restructured, future-proofed&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Section 3: Guiding Change --&gt;
+      &lt;section id=&quot;leadership&quot; class=&quot;py-16 bg-gradient-to-b from-slate-50 to-cyan-50&quot;&gt;
+        &lt;div class=&quot;max-w-6xl mx-auto px-6&quot;&gt;
+          &lt;h2 class=&quot;serif text-4xl font-semibold mb-12 text-center&quot;&gt;
+            &lt;span class=&quot;section-number&quot;&gt;3.&lt;/span&gt; Guiding Change (Non-Dominant Leadership)
+          &lt;/h2&gt;
+
+          &lt;div class=&quot;grid md:grid-cols-2 gap-8&quot;&gt;
+            &lt;div class=&quot;bg-white p-8 rounded-lg shadow-sm&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-teal-700 mb-4&quot;&gt;
+                &lt;i class=&quot;fas fa-hands-helping mr-2&quot;&gt;&lt;/i&gt;Enable &amp; Empower
+              &lt;/h4&gt;
+              &lt;ul class=&quot;space-y-1 text-sm&quot;&gt;
+                &lt;li&gt;&lt;strong&gt;championed&lt;/strong&gt; – fervently supported&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;empowered&lt;/strong&gt; – enabled agency&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;mentored&lt;/strong&gt; – guided development&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;facilitated&lt;/strong&gt; – made easier&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;bg-white p-8 rounded-lg shadow-sm&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-indigo-700 mb-4&quot;&gt;
+                &lt;i class=&quot;fas fa-users-cog mr-2&quot;&gt;&lt;/i&gt;Orchestrate &amp; Coordinate
+              &lt;/h4&gt;
+              &lt;ul class=&quot;space-y-1 text-sm&quot;&gt;
+                &lt;li&gt;&lt;strong&gt;orchestrated&lt;/strong&gt; – harmonized elements&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;coordinated&lt;/strong&gt; – aligned efforts&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;curated&lt;/strong&gt; – thoughtfully assembled&lt;/li&gt;
+                &lt;li&gt;&lt;strong&gt;brokered&lt;/strong&gt; – bridged interests&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Section 4: Momentum --&gt;
+      &lt;section id=&quot;momentum&quot; class=&quot;py-16 bg-white&quot;&gt;
+        &lt;div class=&quot;max-w-6xl mx-auto px-6&quot;&gt;
+          &lt;h2 class=&quot;serif text-4xl font-semibold mb-12 text-center&quot;&gt;
+            &lt;span class=&quot;section-number&quot;&gt;4.&lt;/span&gt; Driving Momentum &amp; Sustained Progress
+          &lt;/h2&gt;
+
+          &lt;div class=&quot;grid md:grid-cols-3 gap-8&quot;&gt;
+            &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm border-t-4 border-teal-400&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-teal-700 mb-2&quot;&gt;Propel&lt;/h4&gt;
+              &lt;p class=&quot;text-sm&quot;&gt;propelled, accelerated, fast-tracked, expedited&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm border-t-4 border-indigo-400&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-indigo-700 mb-2&quot;&gt;Foster&lt;/h4&gt;
+              &lt;p class=&quot;text-sm&quot;&gt;fostered, cultivated, nurtured, incubated&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm border-t-4 border-purple-400&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-purple-700 mb-2&quot;&gt;Amplify&lt;/h4&gt;
+              &lt;p class=&quot;text-sm&quot;&gt;amplified, scaled, expanded, magnified&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Section 5: Idioms &amp; Phrases --&gt;
+      &lt;section id=&quot;idioms&quot; class=&quot;py-16 bg-gradient-to-b from-slate-50 to-cyan-50&quot;&gt;
+        &lt;div class=&quot;max-w-6xl mx-auto px-6&quot;&gt;
+          &lt;h2 class=&quot;serif text-4xl font-semibold mb-12 text-center&quot;&gt;
+            &lt;span class=&quot;section-number&quot;&gt;5.&lt;/span&gt; Idioms &amp; Expressions of Agency
+          &lt;/h2&gt;
+
+          &lt;div class=&quot;grid md:grid-cols-2 gap-8&quot;&gt;
+            &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-teal-700 mb-3&quot;&gt;
+                &lt;i class=&quot;fas fa-route mr-2&quot;&gt;&lt;/i&gt;Path-Creation
+              &lt;/h4&gt;
+              &lt;ul class=&quot;space-y-1 text-sm&quot;&gt;
+                &lt;li&gt;break new ground&lt;/li&gt;
+                &lt;li&gt;chart new territory&lt;/li&gt;
+                &lt;li&gt;forge a new path&lt;/li&gt;
+                &lt;li&gt;carve out a niche&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;bg-white p-6 rounded-lg shadow-sm&quot;&gt;
+              &lt;h4 class=&quot;font-semibold text-indigo-700 mb-3&quot;&gt;
+                &lt;i class=&quot;fas fa-rocket mr-2&quot;&gt;&lt;/i&gt;Momentum &amp; Energy
+              &lt;/h4&gt;
+              &lt;ul class=&quot;space-y-1 text-sm&quot;&gt;
+                &lt;li&gt;gain traction&lt;/li&gt;
+                &lt;li&gt;build steam&lt;/li&gt;
+                &lt;li&gt;move the needle&lt;/li&gt;
+                &lt;li&gt;keep the ball rolling&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Footer --&gt;
+      &lt;footer class=&quot;py-12 bg-slate-800 text-white&quot;&gt;
+        &lt;div class=&quot;max-w-4xl mx-auto px-6 text-center&quot;&gt;
+          &lt;p class=&quot;text-lg mb-4&quot;&gt;
+            “Power To” is the lexicon of generative agency—words that spark, guide, and sustain transformation without dominance.
+          &lt;/p&gt;
+          &lt;p class=&quot;text-sm text-gray-400&quot;&gt;
+            Continually expanded through practice, reflection, and collaborative creation.
+          &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/footer&gt;
+    &lt;/main&gt;
+
+    &lt;script&gt;
+        // Smooth scrolling &amp; active link highlighting (same as previous template)
+        document.querySelectorAll('.toc-link').forEach(link =&gt; {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        function updateActiveTOCLink() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            let current = '';
+            sections.forEach(section =&gt; {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY &gt;= sectionTop) { current = section.getAttribute('id'); }
+            });
+            tocLinks.forEach(link =&gt; {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); }
+            });
+        }
+        window.addEventListener('scroll', updateActiveTOCLink);
+        updateActiveTOCLink();
+
+        // Fade-in animation observer
+        const observer = new IntersectionObserver(entries =&gt; {
+            entries.forEach(entry =&gt; {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        document.querySelectorAll('.bento-item').forEach(item =&gt; observer.observe(item));
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+</body>
+</html>
