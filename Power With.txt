@@ -1,0 +1,2233 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Power With: A Lexicon of Collaborative Action and Shared Authorship</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'sage': '#9CAF88',
+                        'clay': '#B5A082',
+                        'stone': '#8B8680',
+                        'cream': '#F5F3F0',
+                        'charcoal': '#2C2B29',
+                        'warm-gray': '#E8E4E0',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(156, 175, 136, 0.1) 0%, rgba(181, 160, 130, 0.1) 100%);
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .citation-link {
+            color: #9CAF88;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #9CAF88;
+        }
+        .citation-link:hover {
+            color: #7A8F6C;
+            border-bottom-color: #7A8F6C;
+        }
+        .toc-link {
+            transition: all 0.3s ease;
+        }
+        .toc-link:hover {
+            color: #9CAF88;
+            transform: translateX(4px);
+        }
+        .section-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(156, 175, 136, 0.2);
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(156, 175, 136, 0.05) 0%, rgba(181, 160, 130, 0.05) 100%);
+            border-left: 4px solid #9CAF88;
+        }
+        .metaphor-card {
+            background: rgba(245, 243, 240, 0.8);
+            border: 1px solid rgba(139, 134, 128, 0.2);
+            transition: all 0.3s ease;
+        }
+        .metaphor-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        /* Mermaid chart styling */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* 防止触摸设备上的默认行为 */
+            -webkit-user-select: none; /* 防止文本选择 */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Responsive styles for mermaid controls */
+        @media (max-width: 1024px) {
+            .mermaid-control-btn:not(.reset-zoom) {
+                display: none;
+            }
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+  </head>
+
+  <body class="font-sans text-charcoal bg-cream leading-relaxed overflow-x-hidden">
+    <!-- Fixed Table of Contents -->
+    <div id="toc" class="fixed left-0 top-0 h-full w-80 bg-white/90 backdrop-blur-lg border-r border-sage/20 z-40 overflow-y-auto transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+      <div class="p-6">
+        <h3 class="font-serif text-lg font-bold text-charcoal mb-4">Table of Contents</h3>
+        <nav class="space-y-2">
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#introduction">Introduction</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#foundational-concepts">1. Foundational Concepts</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#collaborative-metaphors">2. Collaborative Metaphors</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#language-of-trust">3. Language of Mutual Trust</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#vocabulary-interdependence">4. Vocabulary of Interdependence</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#shared-authorship">5. Shared Authorship</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#social-coherence">6. Social Coherence Signals</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#partnership-phrases">7. Partnership Phrases</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#non-hierarchical">8. Non-hierarchical Language</a>
+          <a class="toc-link block text-sm text-stone hover:text-sage py-1" href="#power-sharing">9. Power Sharing</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Mobile TOC Toggle -->
+    <button id="toc-toggle" class="fixed top-4 left-4 z-50 lg:hidden bg-white/80 backdrop-blur-sm rounded-full p-3 border border-sage/20">
+      <i class="fas fa-bars text-sage"></i>
+    </button>
+
+    <!-- Main Content -->
+    <div class="lg:ml-80">
+      <!-- Hero Section with Bento Grid -->
+      <section class="min-h-screen gradient-overlay">
+        <div class="container mx-auto px-4 sm:px-8 py-12">
+          <!-- Bento Grid Layout -->
+          <div class="grid grid-cols-12 gap-6 mb-16">
+            <!-- Main Title Block -->
+            <div class="col-span-12 lg:col-span-8 section-card rounded-2xl p-12">
+              <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-charcoal mb-6 leading-tight">
+                <em class="text-sage">Power With:</em>
+                <br/>
+                A Lexicon of Collaborative Action and Shared Authorship
+              </h1>
+              <p class="text-xl text-stone leading-relaxed">
+                A curated collection of English words and phrases that embody the principles of co-created action, mutual trust, interdependence, and shared authorship.
+              </p>
+            </div>
+
+            <!-- Visual Element -->
+            <div class="col-span-12 lg:col-span-4">
+              <div class="h-full rounded-2xl overflow-hidden">
+                <img alt="Abstract interconnected nodes symbolizing collaboration" class="w-full h-full object-cover" src="https://kimi-web-img.moonshot.cn/img/hackernoon.com/43fd582beeffe713aef884d251439336e10f4e7d.png" size="medium" aspect="wide" query="abstract interconnected nodes collaboration" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Highlights Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="highlight-box p-6 rounded-xl">
+              <div class="flex items-center mb-3">
+                <i class="fas fa-hands-helping text-sage text-2xl mr-3"></i>
+                <h3 class="font-serif text-lg font-bold">Co-creation</h3>
+              </div>
+              <p class="text-stone text-sm">Stakeholders actively participate in shaping outcomes through shared authorship and collaborative processes.</p>
+            </div>
+
+            <div class="highlight-box p-6 rounded-xl">
+              <div class="flex items-center mb-3">
+                <i class="fas fa-link text-sage text-2xl mr-3"></i>
+                <h3 class="font-serif text-lg font-bold">Interdependence</h3>
+              </div>
+              <p class="text-stone text-sm">Mutual reliance where individual actions affect and are affected by the collective, creating shared responsibility.</p>
+            </div>
+
+            <div class="highlight-box p-6 rounded-xl">
+              <div class="flex items-center mb-3">
+                <i class="fas fa-heart text-sage text-2xl mr-3"></i>
+                <h3 class="font-serif text-lg font-bold">Mutual Trust</h3>
+              </div>
+              <p class="text-stone text-sm">The foundational bedrock for effective collaboration, earned through consistent positive interactions.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Introduction -->
+      <section class="py-20 bg-white" id="introduction">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <div class="prose prose-lg max-w-none">
+            <p class="text-xl leading-relaxed text-stone mb-8">
+              This lexicon provides a curated collection of English words and phrases that embody the principles of &#34;Power With,&#34; including co-created action, mutual trust, interdependence, and shared authorship. These terms are drawn from various domains and are categorized to help identify and foster collaborative dynamics.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Foundational Concepts -->
+      <section class="py-20 bg-cream" id="foundational-concepts">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">1. Foundational Concepts of &#34;Power With&#34;</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">1.1 Defining &#34;Power With&#34;: Shared Power and Mutual Respect</h3>
+              <p class="text-stone leading-relaxed mb-6">
+                The concept of <strong>&#34;Power With&#34;</strong> is fundamentally rooted in the idea of <strong>shared power and mutual respect</strong> among individuals or groups. It represents a paradigm shift from traditional, hierarchical models of power (&#34;Power Over&#34;) towards a more collaborative and egalitarian approach. <a class="citation-link" href="#ref-157">[157]</a>
+              </p>
+
+              <div class="highlight-box p-6 rounded-lg mb-6">
+                <p class="text-charcoal font-medium">
+                  &#34;Power With&#34; is characterized by the ability to empower other actors or for several actors to work collectively toward shared objectives, with an emphasis on fostering an environment where everyone feels empowered to contribute.
+                </p>
+              </div>
+
+              <p class="text-stone leading-relaxed">
+                This form of power is not about one entity imposing its will on another, but rather about individuals or groups acting in concert, recognizing their interdependence and the value each brings to the collective endeavor. <a class="citation-link" href="#ref-134">[134]</a>
+              </p>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">1.2 Contrasting &#34;Power With&#34; and &#34;Power Over&#34; Dynamics</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+                  <h4 class="font-bold text-red-800 mb-3">Power Over</h4>
+                  <ul class="text-red-700 space-y-2 text-sm">
+                    <li>• One actor constrains another&#39;s choices</li>
+                    <li>• Unilateral decision-making</li>
+                    <li>• Information filtered through dominant lens</li>
+                    <li>• Hierarchical, top-down control</li>
+                  </ul>
+                </div>
+
+                <div class="bg-sage/10 border-l-4 border-sage p-6 rounded-r-lg">
+                  <h4 class="font-bold text-sage mb-3">Power With</h4>
+                  <ul class="text-stone space-y-2 text-sm">
+                    <li>• Shared power and collective action</li>
+                    <li>• Mutual empowerment and reciprocity</li>
+                    <li>• All voices substantively inform outcomes</li>
+                    <li>• Fluid, adaptive leadership</li>
+                  </ul>
+                </div>
+              </div>
+
+              <p class="text-stone leading-relaxed">
+                The distinction between these dynamics is crucial. &#34;Power Over&#34; is characterized by one actor&#39;s ability to constrain the choices or actions of another, while &#34;Power With&#34; emphasizes shared power, collective action, and mutual empowerment. <a class="citation-link" href="#ref-157">[157]</a>
+              </p>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">1.3 Core Principles: Co-creation, Interdependence, and Mutual Trust</h3>
+
+              <div class="space-y-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-serif text-xl font-bold text-charcoal mb-3">
+                    <i class="fas fa-users text-sage mr-2"></i>
+                    Co-creation
+                  </h4>
+                  <p class="text-stone">
+                    A process where stakeholders feel involved in creating, developing, and implementing an idea, moving beyond mere input to active participation in shaping outcomes. <a class="citation-link" href="#ref-147">[147]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-serif text-xl font-bold text-charcoal mb-3">
+                    <i class="fas fa-project-diagram text-sage mr-2"></i>
+                    Interdependence
+                  </h4>
+                  <p class="text-stone">
+                    Recognizing that individuals and groups rely on each other to achieve common goals, with actions affecting and being affected by others in a mutual reliance relationship. <a class="citation-link" href="#ref-137">[137]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-serif text-xl font-bold text-charcoal mb-3">
+                    <i class="fas fa-handshake text-sage mr-2"></i>
+                    Mutual Trust
+                  </h4>
+                  <p class="text-stone">
+                    The bedrock for effective co-creation, creating a safe space where individuals can invest their time and resources, confident that it is a sound investment. <a class="citation-link" href="#ref-142">[142]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Collaborative Metaphors -->
+      <section class="py-20 bg-white" id="collaborative-metaphors">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">2. Collaborative Metaphors and Analogies</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">2.1 Metaphors of Unity and Interconnectedness</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-2">Interconnected Constellation</h4>
+                  <p class="text-sm text-stone">Each member, like a star, contributes to the brilliance and structure of the overall system. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-2">Mutual Mosaic</h4>
+                  <p class="text-sm text-stone">Diverse parts working in concert create beauty greater than individual pieces. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-2">Unity Quilt</h4>
+                  <p class="text-sm text-stone">Individual works stitched together create a cohesive, functional whole. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-2">Bouquet of Flowers</h4>
+                  <p class="text-sm text-stone">Various components, each with unique beauty, create something more magnificent together. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-2">Flock of Birds</h4>
+                  <p class="text-sm text-stone">Natural unity facing shared challenges to achieve common goals. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-2">Colony of Ants</h4>
+                  <p class="text-sm text-stone">Small creatures achieving remarkable feats through organized, collective effort. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">2.2 Metaphors for Trust and Shared Foundation</h3>
+
+              <div class="highlight-box p-6 rounded-lg mb-6">
+                <p class="text-charcoal font-medium text-lg mb-4">
+                  &#34;Collaboration is earned, not assigned&#34; <a class="citation-link" href="#ref-7">[7]</a>
+                </p>
+                <p class="text-stone">
+                  Trust and willingness to work together must be cultivated through consistent positive interactions, not automatically granted.
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Trust is Oxygen</h4>
+                    <p class="text-sm text-stone">Essential for the life and breath of a relationship. <a class="citation-link" href="#ref-11">[11]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Trust is a Foundation</h4>
+                    <p class="text-sm text-stone">The critical base that supports every relationship and joint endeavor. <a class="citation-link" href="#ref-11">[11]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Trust is a Bridge</h4>
+                    <p class="text-sm text-stone">Connects people across potential gaps of doubt and uncertainty. <a class="citation-link" href="#ref-11">[11]</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Trust is a Mirror</h4>
+                    <p class="text-sm text-stone">Reflects honesty and authenticity back to those involved. <a class="citation-link" href="#ref-11">[11]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Trust is a River</h4>
+                    <p class="text-sm text-stone">Flows continuously and shapes the landscape of relationships over time. <a class="citation-link" href="#ref-11">[11]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Trust is a Tapestry</h4>
+                    <p class="text-sm text-stone">Woven from many individual threads of honest words and supportive acts. <a class="citation-link" href="#ref-11">[11]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">2.3 Metaphors for Co-creation and Joint Effort</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-utensils text-sage mr-2"></i>
+                    Collective Cuisine
+                  </h4>
+                  <p class="text-stone text-sm">
+                    Mixing different ingredients or purposes to create something new and unique, like a chef combining various flavors. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-music text-sage mr-2"></i>
+                    Symphony Orchestra
+                  </h4>
+                  <p class="text-stone text-sm">
+                    Individuals with different talents creating a new and remarkable performance through harmonized collaboration. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-seedling text-sage mr-2"></i>
+                    Joint Gardening
+                  </h4>
+                  <p class="text-stone text-sm">
+                    Sharing a task that brings collective joy and nurtures growth through unity. <a class="citation-link" href="#ref-6">[6]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-mountain text-sage mr-2"></i>
+                    Barn Raising
+                  </h4>
+                  <p class="text-stone text-sm">
+                    Community coming together, each contributing skills and labor to achieve what would be impossible alone. <a class="citation-link" href="#ref-125">[125]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Language of Mutual Trust -->
+      <section class="py-20 bg-cream" id="language-of-trust">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">3. Language of Mutual Trust and Respect</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">3.1 Phrases Indicating Earned Collaboration and Mutual Accountability</h3>
+
+              <div class="highlight-box p-6 rounded-lg mb-6">
+                <h4 class="font-bold text-charcoal mb-4">Key Principles</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-lg font-medium text-sage mb-2">&#34;Collaboration is earned, not assigned&#34;</p>
+                    <p class="text-sm text-stone">Genuine partnership arises from demonstrated commitment and reliability. <a class="citation-link" href="#ref-280">[280]</a>
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-lg font-medium text-sage mb-2">&#34;Mutual accountability&#34;</p>
+                    <p class="text-sm text-stone">All parties share responsibility for both process and outcomes. <a class="citation-link" href="#ref-75">[75]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white p-6 rounded-lg border border-sage/20">
+                <h4 class="font-bold text-charcoal mb-3">
+                  <i class="fas fa-magic text-sage mr-2"></i>
+                  The Magic Relationship Ratio
+                </h4>
+                <p class="text-stone">
+                  Healthy relationships are characterized by a ratio of <strong>five positive interactions to every one negative interaction</strong>, serving as a quantifiable social coherence signal for maintaining constructive environments. <a class="citation-link" href="#ref-7">[7]</a>
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">3.2 Terminology for Equality and Reciprocity</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="text-center">
+                  <div class="bg-sage/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-balance-scale text-sage text-2xl"></i>
+                  </div>
+                  <h4 class="font-bold text-charcoal mb-2">Egalitarian</h4>
+                  <p class="text-sm text-stone">Systems where power and influence are distributed evenly</p>
+                </div>
+
+                <div class="text-center">
+                  <div class="bg-sage/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-exchange-alt text-sage text-2xl"></i>
+                  </div>
+                  <h4 class="font-bold text-charcoal mb-2">Reciprocity</h4>
+                  <p class="text-sm text-stone">Mutual compliance with rules of cooperation and support</p>
+                </div>
+
+                <div class="text-center">
+                  <div class="bg-sage/10 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-handshake text-sage text-2xl"></i>
+                  </div>
+                  <h4 class="font-bold text-charcoal mb-2">Equal Partnership</h4>
+                  <p class="text-sm text-stone">Relationships built on mutual respect and shared standing</p>
+                </div>
+              </div>
+
+              <p class="text-stone leading-relaxed">
+                The concept of stakeholders being <strong>&#34;reciprocal project partners&#34;</strong> rather than mere &#34;sources of information&#34; signifies a shift towards balanced and respectful relationships where all parties have valuable insights to offer. <a class="citation-link" href="#ref-157">[157]</a>
+              </p>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">3.3 Expressions of Good Faith and Constructive Dialogue</h3>
+
+              <div class="space-y-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-ear-listen text-sage mr-2"></i>
+                    Active Listening
+                  </h4>
+                  <p class="text-stone mb-3">
+                    &#34;Intently listening to someone using all of your senses, with the intention of comprehending, retaining, and sometimes even summarizing the information they share with you.&#34; <a class="citation-link" href="#ref-244">[244]</a>
+                  </p>
+                  <p class="text-sm text-stone">
+                    Signals respect for the speaker&#39;s perspective and genuine desire to understand.
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-comments text-sage mr-2"></i>
+                    Constructive Dialogue
+                  </h4>
+                  <p class="text-stone">
+                    Conversation aimed at building something positive, involving respectful exchange of ideas even when disagreements arise.
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-heart text-sage mr-2"></i>
+                    In Good Faith
+                  </h4>
+                  <p class="text-stone">
+                    Acting with honesty, transparency, and sincere belief in mutual objectives, genuinely committed to the collaborative process.
+                  </p>
+                </div>
+              </div>
+
+              <div class="highlight-box p-6 rounded-lg mt-8">
+                <h4 class="font-bold text-charcoal mb-3">Transparency Builds Trust</h4>
+                <p class="text-stone">
+                  Open communication and sharing of information directly links to the development of mutual confidence, reducing uncertainty and fostering environments where trust can flourish.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vocabulary of Interdependence -->
+      <section class="py-20 bg-white" id="vocabulary-interdependence">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">4. Vocabulary of Interdependence and Shared Responsibility</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">4.1 Terms Denoting Mutual Benefit and Symbiosis</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Mutual Interdependence</h4>
+                    <p class="text-stone text-sm">
+                      Relationship where parties rely on each other to achieve respective goals, leading to continuous recalibration of power and shared authority. <a class="citation-link" href="#ref-137">[137]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Symbiotic Relationship</h4>
+                    <p class="text-stone text-sm">
+                      Mutually beneficial alliance where parties depend on each other for survival or success, like biological partnerships in nature. <a class="citation-link" href="#ref-3">[3]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Shared Value</h4>
+                    <p class="text-stone text-sm">
+                      Value generated through joint effort that is not solely owned by one party but is a collective outcome. <a class="citation-link" href="#ref-252">[252]</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Reciprocity</h4>
+                    <p class="text-stone text-sm">
+                      Mutual compliance with rules of cooperation, including expectation of receiving support in return for support granted. <a class="citation-link" href="#ref-141">[141]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Synergy</h4>
+                    <p class="text-stone text-sm">
+                      &#34;Two or more organizations combine their powers to create something greater than they could achieve working separately.&#34; <a class="citation-link" href="#ref-240">[240]</a>
+                    </p>
+                  </div>
+
+                  <div class="highlight-box p-6 rounded-lg">
+                    <p class="text-charcoal font-medium">
+                      &#34;Castaways have a better chance of survival together than on their own&#34; <a class="citation-link" href="#ref-161">[161]</a>
+                    </p>
+                    <p class="text-stone text-sm mt-2">
+                      By joining forces, individuals enhance their collective capacity to overcome challenges and thrive.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">4.2 Phrases for Collective Action and Joint Ventures</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                  <div class="bg-sage/10 p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">&#34;Acting in concert&#34;</h4>
+                    <p class="text-sm text-stone">Individuals uniting efforts towards shared objectives. <a class="citation-link" href="#ref-157">[157]</a>
+                    </p>
+                  </div>
+
+                  <div class="bg-sage/10 p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">&#34;Shared objectives&#34;</h4>
+                    <p class="text-sm text-stone">Common goals that collective efforts work towards achieving.</p>
+                  </div>
+
+                  <div class="bg-sage/10 p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">&#34;Collective problem-solving&#34;</h4>
+                    <p class="text-sm text-stone">Addressing challenges through joint effort in non-hierarchical organizations. <a class="citation-link" href="#ref-133">[133]</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="bg-sage/10 p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">&#34;Community-driven model&#34;</h4>
+                    <p class="text-sm text-stone">Impetus, direction, and labor come from diverse groups working together. <a class="citation-link" href="#ref-124">[124]</a>
+                    </p>
+                  </div>
+
+                  <div class="bg-sage/10 p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">&#34;Shared ownership&#34;</h4>
+                    <p class="text-sm text-stone">Project belongs to the community, with success or failure as shared concern. <a class="citation-link" href="#ref-124">[124]</a>
+                    </p>
+                  </div>
+
+                  <div class="bg-sage/10 p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">&#34;Collective responsibility&#34;</h4>
+                    <p class="text-sm text-stone">Accountability for overall health and progress of collaborative projects. <a class="citation-link" href="#ref-124">[124]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 p-6 bg-cream rounded-lg border border-sage/20">
+                <h4 class="font-bold text-charcoal mb-3">
+                  <i class="fas fa-code-branch text-sage mr-2"></i>
+                  Open Source Philosophy
+                </h4>
+                <p class="text-stone mb-3">
+                  &#34;The only sin in open source is not participating&#34; <a class="citation-link" href="#ref-125">[125]</a>
+                </p>
+                <p class="text-stone text-sm">
+                  Emphasizes the expectation of collective involvement in joint ventures and the importance of active participation.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">4.3 Language Reflecting Shared Governance and Participatory Processes</h3>
+
+              <div class="space-y-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-trophy text-sage mr-2"></i>
+                    Meritocracy
+                  </h4>
+                  <p class="text-stone">
+                    Contributions evaluated based on merit rather than contributor&#39;s background, supporting shared influence as individuals gain standing through quality work. <a class="citation-link" href="#ref-124">[124]</a>
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-vote-yea text-sage mr-2"></i>
+                    Participatory Decision-Making
+                  </h4>
+                  <p class="text-stone">
+                    Roadmaps where community members can comment and vote on planned features, allowing many voices to be heard for valuable calibration. <a class="citation-link" href="#ref-125">[125]</a>
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="highlight-box p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Participatory Management</h4>
+                    <p class="text-sm text-stone">Employees at all levels actively involved in decision-making processes.</p>
+                  </div>
+
+                  <div class="highlight-box p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Collaborative Governance</h4>
+                    <p class="text-sm text-stone">Multiple stakeholders work together to address complex problems collectively.</p>
+                  </div>
+
+                  <div class="highlight-box p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Power Sharing</h4>
+                    <p class="text-sm text-stone">Equitable distribution of influence and authority among participants.</p>
+                  </div>
+
+                  <div class="highlight-box p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Horizontal Collaboration</h4>
+                    <p class="text-sm text-stone">Flat structure where parties work side-by-side as equals.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shared Authorship -->
+      <section class="py-20 bg-cream" id="shared-authorship">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">5. Expressions of Shared Authorship and Co-creation</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">5.1 Terminology for Joint Creation and Design</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-code text-sage mr-2"></i>
+                      Collaborative Development
+                    </h4>
+                    <p class="text-stone text-sm mb-3">
+                      Individuals &#34;contribute, modify, and distribute&#34; software, with each verb implying shared creation. <a class="citation-link" href="#ref-124">[124]</a>
+                    </p>
+                    <div class="bg-sage/10 p-3 rounded text-xs text-stone">
+                      <strong>Key Actions:</strong> Collaborate, create, enhance, collectively shape evolution
+                    </div>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-pencil-alt text-sage mr-2"></i>
+                      Co-authoring
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Two or more individuals jointly creating written works, signifying equal contribution. <a class="citation-link" href="#ref-3">[3]</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-drafting-compass text-sage mr-2"></i>
+                      Co-design
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Collaborative design process where designers, users, and stakeholders work together throughout development. <a class="citation-link" href="#ref-3">[3]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-hammer text-sage mr-2"></i>
+                      Jointly Crafting
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Partners working together meticulously to shape and refine shared outputs with equal contribution.
+                    </p>
+                  </div>
+
+                  <div class="highlight-box p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">&#34;Putting fingerprints on the plan&#34;</h4>
+                    <p class="text-sm text-stone">
+                      Compelling metaphor for shared authorship and active participation in collaborative processes. <a class="citation-link" href="#ref-145">[145]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">5.2 Phrases for Collective Intelligence and Impact</h3>
+
+              <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg border border-sage/20">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-lightbulb text-sage mr-2"></i>
+                    Melting Pot of Ideas
+                  </h4>
+                  <p class="text-stone mb-4">
+                    &#34;Diverse and dynamic community of developers, designers, and enthusiasts who collaborate to create and enhance software&#34; - varied perspectives coalesce to produce innovative solutions. <a class="citation-link" href="#ref-124">[124]</a>
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="highlight-box p-4 rounded">
+                      <h5 class="font-medium text-charcoal mb-2">Transparency</h5>
+                      <p class="text-xs text-stone">Entire source code accessible, enabling collective scrutiny and improvement</p>
+                    </div>
+                    <div class="highlight-box p-4 rounded">
+                      <h5 class="font-medium text-charcoal mb-2">Community Engagement</h5>
+                      <p class="text-xs text-stone">Users participate in discussions, report issues, contribute code beyond passive consumption</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-vote-yea text-sage mr-2"></i>
+                    Democratic Decision-Making
+                  </h4>
+                  <p class="text-stone">
+                    Roadmaps where community members comment and vote on features, allowing many voices to be heard for valuable calibration, yielding &#34;the most important product features in approximately the best priority order.&#34; <a class="citation-link" href="#ref-125">[125]</a>
+                  </p>
+                </div>
+
+                <div class="highlight-box p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-comments text-sage mr-2"></i>
+                    &#34;Ideagora&#34; (Idea + Agora)
+                  </h4>
+                  <p class="text-stone">
+                    Democratic, open space where ideas are freely exchanged, debated, and refined, leading to better solutions through continuous, dynamic knowledge sharing. <a class="citation-link" href="#ref-125">[125]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">5.3 Language of Synergy and Collaborative Effort</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-plus text-sage mr-2"></i>
+                      Synergy
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Interaction producing combined effect greater than sum of separate effects - multiplicative power of collaboration. <a class="citation-link" href="#ref-240">[240]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-users text-sage mr-2"></i>
+                      Teamship
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Elevated collaboration where members hold each other accountable and co-author results with mutual commitment. <a class="citation-link" href="#ref-75">[75]</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-arrow-up text-sage mr-2"></i>
+                      Co-elevation
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Individuals actively lift each other up, enhancing collective capabilities through mutual support. <a class="citation-link" href="#ref-75">[75]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-link text-sage mr-2"></i>
+                      Conjoined Forces
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Efforts joined together make something powerful and strong, amplifying power through unity. <a class="citation-link" href="#ref-6">[6]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-8 bg-white p-6 rounded-lg border border-sage/20">
+                <h4 class="font-bold text-charcoal mb-4">
+                  <i class="fas fa-music text-sage mr-2"></i>
+                  &#34;Symphonic Energy&#34;
+                </h4>
+                <p class="text-stone">
+                  Working together makes tasks pleasant and highly effective, like an orchestra where diverse instruments blend to create rich, powerful sound. <a class="citation-link" href="#ref-6">[6]</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Social Coherence Signals -->
+      <section class="py-20 bg-white" id="social-coherence">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">6. Signals of Social Coherence and Harmonious Partnership</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">6.1 Phrases for Social Cohesion and Unity</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Social Cohesion</h4>
+                    <p class="text-sm text-stone">
+                      Bonds or &#34;glue&#34; holding society together through trust, reciprocity, and belonging. <a class="citation-link" href="#ref-3">[3]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Unity Quilt</h4>
+                    <p class="text-sm text-stone">
+                      Individual works stitched together create cohesive, functional whole greater than parts. <a class="citation-link" href="#ref-6">[6]</a>
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Group Constellation</h4>
+                    <p class="text-sm text-stone">
+                      Individuality collectively forms organized array where each person plays role in overall structure. <a class="citation-link" href="#ref-6">[6]</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-4">
+                  <div class="highlight-box p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-quote-left text-sage mr-2"></i>
+                      #CoCreatingWelfare
+                    </h4>
+                    <p class="text-stone italic mb-3">
+                      &#34;Working together, fully, actively and with a shared philosophy&#34; <a class="citation-link" href="#ref-100">[100]</a>
+                    </p>
+                    <p class="text-sm text-stone">
+                      Captures essence of deep community engagement and collaborative action with full investment and alignment.
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-4 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-2">Flock of Birds</h4>
+                    <p class="text-sm text-stone">
+                      Natural unity facing shared challenges to achieve common goals, illustrating collective resilience. <a class="citation-link" href="#ref-6">[6]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">6.2 Terminology for Consensus Building and Conflict Resolution</h3>
+
+              <div class="space-y-6">
+                <div class="bg-sage/10 p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-handshake text-sage mr-2"></i>
+                    Consensus Building
+                  </h4>
+                  <p class="text-stone mb-4">
+                    Processes designed to reach agreement all participants can support, involving open dialogue, active listening, and willingness to find common ground.
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded border border-sage/20">
+                      <h5 class="font-medium text-charcoal mb-2">Mediation</h5>
+                      <p class="text-xs text-stone">Neutral third party helps disputants communicate effectively</p>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-sage/20">
+                      <h5 class="font-medium text-charcoal mb-2">Facilitation</h5>
+                      <p class="text-xs text-stone">Guiding group process for productive discussion</p>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-sage/20">
+                      <h5 class="font-medium text-charcoal mb-2">Negotiation</h5>
+                      <p class="text-xs text-stone">Parties discuss and bargain for mutual outcomes</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="highlight-box p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-trophy text-sage mr-2"></i>
+                    Win-Win Solutions
+                  </h4>
+                  <p class="text-stone">
+                    Integrative bargaining where goal is to expand benefits rather than simply divide them, ensuring all parties&#39; core needs are met.
+                  </p>
+                </div>
+
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-comments text-sage mr-2"></i>
+                    Challenge Culture
+                  </h4>
+                  <p class="text-stone">
+                    Team members feel empowered to respectfully question and critique ideas, fostering innovation and robust decision-making. <a class="citation-link" href="#ref-75">[75]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">6.3 Expressions of Shared Vision and Values</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-eye text-sage mr-2"></i>
+                      Shared Vision
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Collectively developed picture of desired future, serving as guiding star that aligns efforts and motivates participants.
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-heart text-sage mr-2"></i>
+                      Shared Values
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Core principles and beliefs guiding group behavior: respect, integrity, transparency, inclusivity, mutual benefit.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="highlight-box p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Common Language</h4>
+                    <p class="text-stone text-sm mb-3">
+                      &#34;Common goals,&#34; &#34;united purpose,&#34; &#34;collective aspiration&#34; - all point towards jointly held destinations.
+                    </p>
+                    <p class="text-stone text-sm">
+                      &#34;Guiding principles,&#34; &#34;core beliefs,&#34; &#34;our common ethics&#34; - reflect shared ethical frameworks.
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-link text-sage mr-2"></i>
+                      Connection
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Feeling occurring when team members united through shared purpose, supportive bonds, and inclusivity. <a class="citation-link" href="#ref-244">[244]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Partnership Phrases -->
+      <section class="py-20 bg-cream" id="partnership-phrases">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">7. Partnership and Communal Process Phrases</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">7.1 Terminology for Alliances and Strategic Partnerships</h3>
+
+              <div class="bg-white p-8 rounded-lg border border-sage/20 mb-8">
+                <h4 class="font-serif text-xl font-bold text-charcoal mb-4">Partnership Dynamics</h4>
+                <p class="text-stone mb-6">
+                  The study of how different entities interact and collaborate to achieve shared sustainability goals, examining forces shaping collaborations including motivations, decision-making, resource allocation, and conflict resolution. <a class="citation-link" href="#ref-68">[68]</a>
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 class="font-bold text-charcoal mb-3">Key Elements</h5>
+                    <ul class="space-y-2 text-sm text-stone">
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-sage mr-2 mt-1"></i>
+                        <span>Shared vision and common understanding</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-sage mr-2 mt-1"></i>
+                        <span>Trust and transparency in communication</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-sage mr-2 mt-1"></i>
+                        <span>Clear roles and responsibilities</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-check text-sage mr-2 mt-1"></i>
+                        <span>Robust conflict resolution processes</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 class="font-bold text-charcoal mb-3">Partnership Stages</h5>
+                    <ol class="space-y-2 text-sm text-stone">
+                      <li class="flex items-start">
+                        <span class="bg-sage text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">1</span>
+                        <span>Formation</span>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="bg-sage text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">2</span>
+                        <span>Development</span>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="bg-sage text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">3</span>
+                        <span>Implementation</span>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="bg-sage text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">4</span>
+                        <span>Evaluation</span>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="bg-sage text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">5</span>
+                        <span>Transformation or Dissolution</span>
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">7.2 Phrases for Community Engagement and Teamship</h3>
+
+              <div class="space-y-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-users text-sage mr-2"></i>
+                    Teamship
+                  </h4>
+                  <p class="text-stone mb-4">
+                    Shift from hierarchical leadership towards <strong>&#34;collective responsibility and mutual accountability&#34;</strong> where team members empower each other for collective success. <a class="citation-link" href="#ref-75">[75]</a>
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="highlight-box p-4 rounded">
+                      <h5 class="font-medium text-charcoal mb-2">Co-elevation Benefits</h5>
+                      <ul class="text-xs text-stone space-y-1">
+                        <li>• 46% increase in collaboration</li>
+                        <li>• 44% increase in accountability</li>
+                      </ul>
+                    </div>
+                    <div class="highlight-box p-4 rounded">
+                      <h5 class="font-medium text-charcoal mb-2">Key Practices</h5>
+                      <ul class="text-xs text-stone space-y-1">
+                        <li>• Challenge culture for accountability</li>
+                        <li>• Open 360-degree feedback</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-sage/20">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-balance-scale text-sage mr-2"></i>
+                    Egalitarian Teams vs Hierarchical
+                  </h4>
+                  <p class="text-stone mb-4">
+                    Research shows egalitarian teams demonstrate better teamwork and more positive perception of group performance, especially when facing external threats. <a class="citation-link" href="#ref-77">[77]</a>
+                  </p>
+
+                  <div class="highlight-box p-4 rounded">
+                    <p class="text-stone text-sm">
+                      <strong>Millennial Preference:</strong> Younger generations desire participatory work where they can operate as leaders and drive real change, unhindered by traditional power structures.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">7.3 Language of Collaborative Practice and Leadership</h3>
+
+              <div class="space-y-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-sitemap text-sage mr-2"></i>
+                    Collaborative Leadership
+                  </h4>
+                  <p class="text-stone mb-4">
+                    Distribution of power and influence starting at executive level, building leaders at all levels and allowing teams participatory role in shaping company&#39;s future. <a class="citation-link" href="#ref-77">[77]</a>
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-sage/10 p-4 rounded">
+                      <h5 class="font-medium text-charcoal mb-2">Synergetic Teams</h5>
+                      <p class="text-xs text-stone">Better communication and understanding</p>
+                    </div>
+                    <div class="bg-sage/10 p-4 rounded">
+                      <h5 class="font-medium text-charcoal mb-2">Distributed Leadership</h5>
+                      <p class="text-xs text-stone">Every member contributes to driving success</p>
+                    </div>
+                    <div class="bg-sage/10 p-4 rounded">
+                      <h5 class="font-medium text-charcoal mb-2">Effective Decision-Making</h5>
+                      <p class="text-xs text-stone">Leveraging diverse skills and insights</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="highlight-box p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-fist-raised text-sage mr-2"></i>
+                    POWER Framework for Inclusive Leadership
+                  </h4>
+                  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-user-friends text-sm"></i>
+                      </div>
+                      <h5 class="font-medium text-charcoal text-sm">Participation</h5>
+                      <p class="text-xs text-stone">Power to influence outcomes</p>
+                    </div>
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-door-open text-sm"></i>
+                      </div>
+                      <h5 class="font-medium text-charcoal text-sm">Opportunity</h5>
+                      <p class="text-xs text-stone">Open access regardless of background</p>
+                    </div>
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-users text-sm"></i>
+                      </div>
+                      <h5 class="font-medium text-charcoal text-sm">Wider Representation</h5>
+                      <p class="text-xs text-stone">See themselves reflected in environment</p>
+                    </div>
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-rocket text-sm"></i>
+                      </div>
+                      <h5 class="font-medium text-charcoal text-sm">Empowerment</h5>
+                      <p class="text-xs text-stone">Confident action knowing voice heard</p>
+                    </div>
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-ear-listen text-sm"></i>
+                      </div>
+                      <h5 class="font-medium text-charcoal text-sm">Receptiveness</h5>
+                      <p class="text-xs text-stone">Attentive listening and responsive action</p>
+                    </div>
+                  </div>
+                  <p class="text-stone text-sm mt-4">
+                    <a class="citation-link" href="#ref-49">[49]</a> Principles drawn from social justice theories, providing actionable steps for creating inclusive spaces.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Non-hierarchical Language -->
+      <section class="py-20 bg-white" id="non-hierarchical">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">8. Non-hierarchical and Egalitarian Language</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">8.1 Terms for Flat Organizations and Distributed Leadership</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-layer-group text-sage mr-2"></i>
+                      Flat Organization
+                    </h4>
+                    <p class="text-stone text-sm mb-3">
+                      Structure with few or no middle management levels between staff and executives, empowering employees and increasing responsiveness. <a class="citation-link" href="#ref-3">[3]</a>
+                    </p>
+                    <div class="bg-sage/10 p-3 rounded text-xs text-stone">
+                      AKA &#34;flatarchy&#34; - promotes egalitarian environments with free communication flow
+                    </div>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-share-alt text-sage mr-2"></i>
+                      Distributed Leadership
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Leadership tasks and responsibilities shared among multiple individuals or teams, recognizing different strengths and situational leadership emergence.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-arrows-alt-h text-sage mr-2"></i>
+                      Horizontal Collaboration
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Flat structure where parties work side-by-side as equals, rather than in hierarchical or top-down manner. <a class="citation-link" href="#ref-3">[3]</a>
+                    </p>
+                  </div>
+
+                  <div class="highlight-box p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Leadership in Non-hierarchical Settings</h4>
+                    <div class="space-y-3">
+                      <div class="flex items-start">
+                        <i class="fas fa-star text-sage mr-3 mt-1"></i>
+                        <div>
+                          <h5 class="font-medium text-charcoal text-sm">Transformational</h5>
+                          <p class="text-xs text-stone">Inspires teams through influence rather than authority</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start">
+                        <i class="fas fa-vote-yea text-sage mr-3 mt-1"></i>
+                        <div>
+                          <h5 class="font-medium text-charcoal text-sm">Democratic</h5>
+                          <p class="text-xs text-stone">Collaboration and input from all members crucial</p>
+                        </div>
+                      </div>
+                      <div class="flex items-start">
+                        <i class="fas fa-hand-paper text-sage mr-3 mt-1"></i>
+                        <div>
+                          <h5 class="font-medium text-charcoal text-sm">Delegative (Laissez-faire)</h5>
+                          <p class="text-xs text-stone">Trusts teams to make decisions with support</p>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="text-stone text-sm mt-4">
+                      Most effective leaders are versatile, shifting between styles to meet team needs. <a class="citation-link" href="#ref-78">[78]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">8.2 Phrases for Peer Collaboration and Equal Partnership</h3>
+
+              <div class="space-y-6">
+                <div class="bg-sage/10 p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-network-wired text-sage mr-2"></i>
+                    Peer-to-Peer (P2P)
+                  </h4>
+                  <p class="text-stone">
+                    Systems or interactions where parties interact directly as equals, without central authority mediating the relationship. Applies to networks, collaboration models, and economic systems.
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Equal Partnership</h4>
+                    <p class="text-stone text-sm">
+                      Relationship where all parties have equivalent say, share responsibilities and benefits equitably, and view each other as peers with balanced power.
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Reciprocal Project Partners</h4>
+                    <p class="text-stone text-sm">
+                      Shift from viewing stakeholders as &#34;sources of information&#34; to balanced relationships with valuable insights and mutual learning. <a class="citation-link" href="#ref-157">[157]</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="highlight-box p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-3">
+                    <i class="fas fa-quote-left text-sage mr-2"></i>
+                    Partnership Philosophy
+                  </h4>
+                  <p class="text-stone italic mb-3">
+                    &#34;I think good partnerships probably value equality so that there&#39;s no competition and I think it allows for that ebb and flow&#34; <a class="citation-link" href="#ref-162">[162]</a>
+                  </p>
+                  <p class="text-stone text-sm">
+                    Equality linked with harmonious and adaptable working relationships, moving away from language implying subservience or dominance.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">8.3 Language of Empowerment and Co-elevation</h3>
+
+              <div class="space-y-6">
+                <div class="metaphor-card p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-arrow-up text-sage mr-2"></i>
+                    Co-elevation
+                  </h4>
+                  <p class="text-stone mb-4">
+                    Practice where team members actively work to lift each other up, enhancing individual and collective capabilities. Rejects zero-sum power games in favor of mutual support leading to greater overall success. <a class="citation-link" href="#ref-75">[75]</a>
+                  </p>
+
+                  <div class="bg-sage/10 p-4 rounded mb-4">
+                    <h5 class="font-medium text-charcoal mb-2">Measurable Benefits</h5>
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-sage">46%</div>
+                        <div class="text-xs text-stone">Increase in collaboration</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-sage">44%</div>
+                        <div class="text-xs text-stone">Increase in accountability</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="highlight-box p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-users text-sage mr-2"></i>
+                      Teamship Model
+                    </h4>
+                    <p class="text-stone text-sm mb-3">
+                      &#34;Emphasizes <strong>collective responsibility and mutual accountability</strong>, replacing traditional hierarchical leadership&#34; <a class="citation-link" href="#ref-75">[75]</a>
+                    </p>
+                    <ul class="text-xs text-stone space-y-1">
+                      <li>• Challenge culture for accountability</li>
+                      <li>• Peer-driven quality control</li>
+                      <li>• Shared ownership of outcomes</li>
+                    </ul>
+                  </div>
+
+                  <div class="highlight-box p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-rocket text-sage mr-2"></i>
+                      Collaborative Model Shift
+                    </h4>
+                    <p class="text-stone text-sm mb-3">
+                      From traditional hierarchies to <strong>&#34;collaborative, team-driven model&#34;</strong> with vocabulary reflecting change. <a class="citation-link" href="#ref-75">[75]</a>
+                    </p>
+                    <p class="text-xs text-stone">
+                      &#34;Working together, fully, actively and with a shared philosophy&#34; <a class="citation-link" href="#ref-100">[100]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Power Sharing -->
+      <section class="py-20 bg-cream" id="power-sharing">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-4xl font-bold text-charcoal mb-12">9. Power Sharing and Distributed Authority</h2>
+
+          <div class="space-y-12">
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">9.1 Terminology for Shared Leadership and Delegated Responsibility</h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-users-cog text-sage mr-2"></i>
+                      Shared Leadership
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Dynamic, interactive influence process among individuals in groups where objective is to lead one another to achievement of group goals. Moves beyond single leader to collective capacity.
+                    </p>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-share-alt text-sage mr-2"></i>
+                      Distributed Leadership
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Leadership roles and functions spread across various individuals and levels, rather than concentrated at top. Can involve formal delegation or emergent practices.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-tasks text-sage mr-2"></i>
+                      Delegated Responsibility
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Specific tasks, decisions, or authority areas formally assigned to empower individuals, build capacity, and ensure decision-making by those with relevant expertise.
+                    </p>
+                  </div>
+
+                  <div class="highlight-box p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">
+                      <i class="fas fa-balance-scale text-sage mr-2"></i>
+                      Power-sharing
+                    </h4>
+                    <p class="text-stone text-sm">
+                      Direct term denoting equitable distribution of influence, authority, and decision-making capacity among participants. <a class="citation-link" href="#ref-3">[3]</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white p-6 rounded-lg border border-sage/20">
+                <h4 class="font-bold text-charcoal mb-4">
+                  <i class="fas fa-chart-line text-sage mr-2"></i>
+                  Shift in Leadership Paradigm
+                </h4>
+                <p class="text-stone">
+                  These terms collectively advocate for shift away from autocratic or paternalistic models of control towards systems where power is genuinely shared, and leadership is collaborative and adaptive process.
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">9.2 Phrases for Participatory Management and Collaborative Governance</h3>
+
+              <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Participatory Management</h4>
+                    <p class="text-stone text-sm mb-3">
+                      Employees at all levels actively involved in decision-making processes that affect their work and organization.
+                    </p>
+                    <div class="bg-sage/10 p-3 rounded text-xs text-stone">
+                      <strong>Mechanisms:</strong> Team-based decisions, suggestion systems, open forums
+                    </div>
+                  </div>
+
+                  <div class="metaphor-card p-6 rounded-lg">
+                    <h4 class="font-bold text-charcoal mb-3">Collaborative Governance</h4>
+                    <p class="text-stone text-sm mb-3">
+                      Public and private actors work together to address complex public problems and make collective decisions.
+                    </p>
+                    <div class="bg-sage/10 p-3 rounded text-xs text-stone">
+                      <strong>Emphasis:</strong> Shared power, mutual learning, co-production of public value
+                    </div>
+                  </div>
+                </div>
+
+                <div class="highlight-box p-6 rounded-lg">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-university text-sage mr-2"></i>
+                    Shared Governance Applications
+                  </h4>
+                  <p class="text-stone mb-4">
+                    Particularly in academic and healthcare settings, where authority and responsibility for decision-making are distributed among various constituencies (faculty, administrators, students, etc.).
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded border border-sage/20">
+                      <h5 class="font-medium text-charcoal mb-2">Participation</h5>
+                      <p class="text-xs text-stone">&#34;The act of taking part in an event or activity&#34; - essential for collaboration with each voice heard. <a class="citation-link" href="#ref-3">[3]</a>
+                      </p>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-sage/20">
+                      <h5 class="font-medium text-charcoal mb-2">Power-sharing</h5>
+                      <p class="text-xs text-stone">Equitable influence supporting participatory ideals</p>
+                    </div>
+                    <div class="bg-white p-4 rounded border border-sage/20">
+                      <h5 class="font-medium text-charcoal mb-2">Horizontal Collaboration</h5>
+                      <p class="text-xs text-stone">Flat structures emphasizing equitable relationships</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-bold text-charcoal mb-6">9.3 Expressions of Empowerment and Collective Accountability</h3>
+
+              <div class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div class="space-y-6">
+                    <div class="metaphor-card p-6 rounded-lg">
+                      <h4 class="font-bold text-charcoal mb-4">
+                        <i class="fas fa-rocket text-sage mr-2"></i>
+                        Empowerment
+                      </h4>
+                      <p class="text-stone text-sm mb-4">
+                        Process of enabling individuals or groups to take control of their own lives, work, or circumstances by providing necessary resources, authority, opportunity, and support.
+                      </p>
+
+                      <div class="space-y-2">
+                        <div class="flex items-center text-xs text-stone">
+                          <i class="fas fa-microphone text-sage mr-2"></i>
+                          &#34;Giving people a voice&#34;
+                        </div>
+                        <div class="flex items-center text-xs text-stone">
+                          <i class="fas fa-user-check text-sage mr-2"></i>
+                          &#34;Fostering autonomy&#34;
+                        </div>
+                        <div class="flex items-center text-xs text-stone">
+                          <i class="fas fa-building text-sage mr-2"></i>
+                          &#34;Building capacity&#34;
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="highlight-box p-6 rounded-lg">
+                      <h4 class="font-bold text-charcoal mb-3">
+                        <i class="fas fa-fist-raised text-sage mr-2"></i>
+                        POWER Framework Connection
+                      </h4>
+                      <p class="text-stone text-sm">
+                        Empowerment principle creates inclusive spaces where individuals can act confidently, knowing their presence matters and voice will be heard. <a class="citation-link" href="#ref-49">[49]</a>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="space-y-6">
+                    <div class="metaphor-card p-6 rounded-lg">
+                      <h4 class="font-bold text-charcoal mb-4">
+                        <i class="fas fa-users text-sage mr-2"></i>
+                        Collective Accountability
+                      </h4>
+                      <p class="text-stone text-sm mb-4">
+                        Shared responsibility among group members for outcomes of collaborative efforts. Team as whole, rather than just designated leader, is accountable for successes and failures.
+                      </p>
+
+                      <div class="bg-sage/10 p-4 rounded">
+                        <h5 class="font-medium text-charcoal mb-2">Expressions</h5>
+                        <ul class="text-xs text-stone space-y-1">
+                          <li>• &#34;We are all in this together&#34;</li>
+                          <li>• &#34;Shared responsibility for results&#34;</li>
+                          <li>• &#34;Owning the outcome as a team&#34;</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="metaphor-card p-6 rounded-lg">
+                      <h4 class="font-bold text-charcoal mb-3">
+                        <i class="fas fa-handshake text-sage mr-2"></i>
+                        Mutual Accountability
+                      </h4>
+                      <p class="text-stone text-sm">
+                        Within &#34;Teamship&#34; model, team members hold each other accountable, creating peer-to-peer system of checks and balances. <a class="citation-link" href="#ref-75">[75]</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg border border-sage/20">
+                  <h4 class="font-bold text-charcoal mb-4">
+                    <i class="fas fa-sync text-sage mr-2"></i>
+                    Empowerment + Accountability Cycle
+                  </h4>
+                  <p class="text-stone mb-4">
+                    Combination creates powerful dynamic where individuals are trusted and enabled to contribute their best, while feeling strong responsibility towards the collective and each other.
+                  </p>
+
+                  <div class="flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-rocket"></i>
+                      </div>
+                      <p class="text-sm font-medium text-charcoal">Empowerment</p>
+                    </div>
+                    <i class="fas fa-arrow-right text-sage mx-4"></i>
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-users"></i>
+                      </div>
+                      <p class="text-sm font-medium text-charcoal">Trust</p>
+                    </div>
+                    <i class="fas fa-arrow-right text-sage mx-4"></i>
+                    <div class="text-center">
+                      <div class="bg-sage text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                        <i class="fas fa-shield-alt"></i>
+                      </div>
+                      <p class="text-sm font-medium text-charcoal">Responsibility</p>
+                    </div>
+                  </div>
+
+                  <p class="text-stone text-sm mt-6 text-center">
+                    Ensures &#34;Power With&#34; is exercised responsibly and effectively through mutual commitment and support.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conceptual Framework Diagram -->
+      <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-3xl font-bold text-charcoal mb-8 text-center">Power With Framework</h2>
+          <div class="bg-cream p-8 rounded-lg border border-sage/20">
+            <div class="mermaid-container">
+              <div class="mermaid-controls">
+                <button class="mermaid-control-btn zoom-in" title="放大">
+                  <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="mermaid-control-btn zoom-out" title="缩小">
+                  <i class="fas fa-search-minus"></i>
+                </button>
+                <button class="mermaid-control-btn reset-zoom" title="重置">
+                  <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                  <i class="fas fa-expand"></i>
+                </button>
+              </div>
+              <div class="mermaid">
+                graph TD
+                A[&#34;Power With&#34;] --&gt; B[&#34;Shared Power&#34;]
+                A --&gt; C[&#34;Mutual Respect&#34;]
+                A --&gt; D[&#34;Collective Action&#34;]
+
+                B --&gt; E[&#34;Co-creation&#34;]
+                B --&gt; F[&#34;Power-sharing&#34;]
+                B --&gt; G[&#34;Distributed Leadership&#34;]
+
+                C --&gt; H[&#34;Trust Building&#34;]
+                C --&gt; I[&#34;Active Listening&#34;]
+                C --&gt; J[&#34;Transparent Communication&#34;]
+
+                D --&gt; K[&#34;Collaborative Governance&#34;]
+                D --&gt; L[&#34;Community Engagement&#34;]
+                D --&gt; M[&#34;Teamship&#34;]
+
+                E --&gt; N[&#34;Innovation&#34;]
+                F --&gt; O[&#34;Equitable Influence&#34;]
+                G --&gt; P[&#34;Empowerment&#34;]
+
+                H --&gt; Q[&#34;Psychological Safety&#34;]
+                I --&gt; R[&#34;Deep Understanding&#34;]
+                J --&gt; S[&#34;Open Dialogue&#34;]
+
+                K --&gt; T[&#34;Democratic Decision-making&#34;]
+                L --&gt; U[&#34;Collective Intelligence&#34;]
+                M --&gt; V[&#34;Co-elevation&#34;]
+
+                style A fill:#9CAF88,stroke:#7A8F6C,stroke-width:3px,color:#ffffff
+                style B fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style C fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style D fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style E fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style F fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style G fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style H fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style I fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style J fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style K fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style L fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style M fill:#E8E4E0,stroke:#B5A082,stroke-width:2px,color:#2C2B29
+                style N fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style O fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style P fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style Q fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style R fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style S fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style T fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style U fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+                style V fill:#F5F3F0,stroke:#9CAF88,stroke-width:2px,color:#2C2B29
+              </div>
+            </div>
+          </div>
+          <p class="text-stone text-sm mt-4 text-center">
+            This framework illustrates how &#34;Power With&#34; operates through interconnected principles of shared power, mutual respect, and collective action, leading to empowered collaboration and innovation.
+          </p>
+        </div>
+      </section>
+
+      <!-- References Section -->
+      <section class="py-20 bg-cream">
+        <div class="container mx-auto px-4 sm:px-8 max-w-4xl">
+          <h2 class="font-serif text-3xl font-bold text-charcoal mb-8">References</h2>
+          <div class="bg-white p-8 rounded-lg border border-sage/20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-stone">
+              <div id="ref-3">[3] <a class="citation-link" href="https://relatedwords.io/collaboration">RelatedWords.io - Collaboration Terms</a>
+              </div>
+              <div id="ref-6">[6] <a class="citation-link" href="https://inglishe.com/metaphors-for-collaboration/">Metaphors for Collaboration</a>
+              </div>
+              <div id="ref-7">[7] <a class="citation-link" href="https://tankhuynh.com/mantras/">Mantras for Collaboration</a>
+              </div>
+              <div id="ref-11">[11] <a class="citation-link" href="https://englishclaritys.com/metaphors-for-trust/">Metaphors for Trust</a>
+              </div>
+              <div id="ref-49">[49] <a class="citation-link" href="https://thecultureequation.com.au/inclusive-leadership-the-power-framework-for-real-change/">POWER Framework for Inclusive Leadership</a>
+              </div>
+              <div id="ref-68">[68] <a class="citation-link" href="https://esg.sustainability-directory.com/term/partnership-dynamics/">Partnership Dynamics in Sustainability</a>
+              </div>
+              <div id="ref-75">[75] <a class="citation-link" href="https://allwork.space/2025/02/goodbye-hierarchy-hello-teamship-this-is-the-future-of-effective-teams/">Teamship Model Research</a>
+              </div>
+              <div id="ref-100">[100] <a class="citation-link" href="https://sallypezaro.wordpress.com/2019/07/09/cocreatingwelfare/">#CoCreatingWelfare Project</a>
+              </div>
+              <div id="ref-124">[124] <a class="citation-link" href="https://medium.com/@accretivetechnologygroup/open-source-software-community-collaboration-and-innovation-8bf6a39b5213">Open Source Software Community Collaboration</a>
+              </div>
+              <div id="ref-125">[125] <a class="citation-link" href="https://opensource.com/principles">Open Source Principles</a>
+              </div>
+              <div id="ref-133">[133] <a class="citation-link" href="https://www.corporate-rebels.com/leadership-a-new-perspective">Leadership: A New Perspective</a>
+              </div>
+              <div id="ref-134">[134] <a class="citation-link" href="https://medium.com/the-tuning-fork/hierarchy-is-not-the-problem-892610f5d9c0">Hierarchy is Not the Problem</a>
+              </div>
+              <div id="ref-137">[137] <a class="citation-link" href="https://www.cambridge.org/core/journals/government-and-opposition/article/understanding-powersharing-within-political-parties-stratarchy-as-mutual-interdependence-between-the-party-in-the-centre-and-the-party-on-the-ground/38139EACD20CA4CC69E1C9458CC6BBD2">Power-sharing in Political Parties</a>
+              </div>
+              <div id="ref-141">[141] <a class="citation-link" href="https://link.springer.com/article/10.1057/s41307-024-00362-3">University Network Cooperation</a>
+              </div>
+              <div id="ref-142">[142] <a class="citation-link" href="https://www.boundaries.me/blog/trust-vs-control">Trust vs Control</a>
+              </div>
+              <div id="ref-145">[145] <a class="citation-link" href="https://kingdomatwork.com/from-input-to-co-creation-the-heart-of-true-collaboration/">From Input to Co-creation</a>
+              </div>
+              <div id="ref-147">[147] <a class="citation-link" href="https://brootc.com/co-creation-the-secret-to-unlocking-your-team-potential/">Co-creation: Unlocking Team Potential</a>
+              </div>
+              <div id="ref-157">[157] <a class="citation-link" href="https://www.frontiersin.org/journals/education/articles/10.3389/feduc.2024.1371216/full">Power With in Design Education</a>
+              </div>
+              <div id="ref-161">[161] <a class="citation-link" href="https://bookroo.com/quotes/equal-partners">Equal Partners Quotes</a>
+              </div>
+              <div id="ref-162">[162] <a class="citation-link" href="https://founderandforcemultiplier.com/the-43-best-quotes-for-building-a-strong-business-partnership/">Business Partnership Quotes</a>
+              </div>
+              <div id="ref-171">[171] <a class="citation-link" href="https://www.azuregate.net/2013/02/25/power-over-versus-power-with/">Power Over vs Power With</a>
+              </div>
+              <div id="ref-240">[240] <a class="citation-link" href="https://www.wrike.com/collaborative-work-guide/glossary/">Collaborative Work Glossary</a>
+              </div>
+              <div id="ref-244">[244] <a class="citation-link" href="https://www.mural.co/blog/collaboration-glossary">Mural Collaboration Glossary</a>
+              </div>
+              <div id="ref-252">[252] <a class="citation-link" href="https://www.igi-global.com/dictionary/co-creation/4101">Co-creation Definition</a>
+              </div>
+              <div id="ref-280">[280] <a class="citation-link" href="https://tankhuynh.com/mantras/">Collaboration Mantras</a>
+              </div>
+              <div id="ref-282">[282] <a class="citation-link" href="https://inglishe.com/metaphors-for-collaboration/">Collaboration Metaphors Collection</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+        // Initialize Mermaid with custom theme
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#F5F3F0',
+                primaryTextColor: '#2C2B29',
+                primaryBorderColor: '#9CAF88',
+                lineColor: '#B5A082',
+                secondaryColor: '#E8E4E0',
+                tertiaryColor: '#ffffff',
+                background: '#ffffff',
+                mainBkg: '#F5F3F0',
+                secondaryBkg: '#E8E4E0',
+                tertiaryBkg: '#ffffff',
+                quaternaryBkg: '#9CAF88',
+                primaryTextColor: '#2C2B29',
+                secondaryTextColor: '#2C2B29',
+                tertiaryTextColor: '#ffffff',
+                textColor: '#2C2B29',
+                THEME_COLOR_LIMIT: 12
+            },
+            flowchart: {
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // Initialize mermaid controls after charts are rendered
+        setTimeout(initializeMermaidControls, 1000);
+
+        // Mobile TOC Toggle
+        document.getElementById('toc-toggle').addEventListener('click', function() {
+            const toc = document.getElementById('toc');
+            toc.classList.toggle('-translate-x-full');
+        });
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile TOC
+                const toc = document.getElementById('toc');
+                toc.classList.add('-translate-x-full');
+            });
+        });
+
+        // Highlight active section in TOC
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                const tocLink = document.querySelector(`a[href="#${sectionId}"]`);
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('text-sage', 'font-semibold'));
+                    if (tocLink) {
+                        tocLink.classList.add('text-sage', 'font-semibold');
+                    }
+                }
+            });
+        });
+
+        // Close mobile TOC when clicking outside
+        document.addEventListener('click', function(e) {
+            const toc = document.getElementById('toc');
+            const toggle = document.getElementById('toc-toggle');
+            
+            if (!toc.contains(e.target) && !toggle.contains(e.target)) {
+                toc.classList.add('-translate-x-full');
+            }
+        });
+    </script>
+
+  
+
+</body></html>
